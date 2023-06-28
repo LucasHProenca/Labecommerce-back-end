@@ -18,6 +18,15 @@ export const users: TUsers[] = [
     }
 ]
 
+export const createUser = (user: TUsers) => {
+    users.push(user)
+    console.log(user)
+}
+
+export const getAllUsers = () => {
+    console.log(users)
+}
+
 export const products: TProducts[] = [
     {
         id: "prod001",
@@ -34,3 +43,24 @@ export const products: TProducts[] = [
         imageUrl: "https://picsum.photos/seed/Monitor/400"
     }
 ]
+
+export const createProduct = (product: TProducts) => {
+    products.push(product)
+    console.log(product)
+}
+
+export const getAllProducts = () => {
+    console.log(products)
+}
+
+export const searchProductsByName = (name: string) => {
+    const lista = []
+        const novaLista = products.filter((product) => {
+            if(name && product.name.toLowerCase().includes(name.toLowerCase())){
+                return product
+            }
+        })
+        lista.push(novaLista)
+        console.log(lista)
+   
+}

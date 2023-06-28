@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.products = exports.users = void 0;
+exports.searchProductsByName = exports.getAllProducts = exports.createProduct = exports.products = exports.getAllUsers = exports.createUser = exports.users = void 0;
 exports.users = [
     {
         id: "u001",
@@ -17,6 +17,15 @@ exports.users = [
         createdAt: new Date().toISOString()
     }
 ];
+const createUser = (user) => {
+    exports.users.push(user);
+    console.log(user);
+};
+exports.createUser = createUser;
+const getAllUsers = () => {
+    console.log(exports.users);
+};
+exports.getAllUsers = getAllUsers;
 exports.products = [
     {
         id: "prod001",
@@ -33,4 +42,24 @@ exports.products = [
         imageUrl: "https://picsum.photos/seed/Monitor/400"
     }
 ];
+const createProduct = (product) => {
+    exports.products.push(product);
+    console.log(product);
+};
+exports.createProduct = createProduct;
+const getAllProducts = () => {
+    console.log(exports.products);
+};
+exports.getAllProducts = getAllProducts;
+const searchProductsByName = (name) => {
+    const lista = [];
+    const novaLista = exports.products.filter((product) => {
+        if (name && product.name.toLowerCase().includes(name.toLowerCase())) {
+            return product;
+        }
+    });
+    lista.push(novaLista);
+    console.log(lista);
+};
+exports.searchProductsByName = searchProductsByName;
 //# sourceMappingURL=database.js.map
