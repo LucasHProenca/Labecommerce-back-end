@@ -17,13 +17,20 @@ exports.users = [
         createdAt: new Date().toISOString()
     }
 ];
-const createUser = (user) => {
-    exports.users.push(user);
-    console.log(user);
+const createUser = (id, name, email, password) => {
+    const newUser = {
+        id,
+        name,
+        email,
+        password,
+        createdAt: new Date().toISOString()
+    };
+    exports.users.push(newUser);
+    console.log(newUser);
 };
 exports.createUser = createUser;
 const getAllUsers = () => {
-    console.log(exports.users);
+    return exports.users;
 };
 exports.getAllUsers = getAllUsers;
 exports.products = [
@@ -42,13 +49,20 @@ exports.products = [
         imageUrl: "https://picsum.photos/seed/Monitor/400"
     }
 ];
-const createProduct = (product) => {
-    exports.products.push(product);
-    console.log(product);
+const createProduct = (id, name, price, description, imageUrl) => {
+    const newProduct = {
+        id,
+        name,
+        price,
+        description,
+        imageUrl
+    };
+    exports.products.push(newProduct);
+    console.log(newProduct);
 };
 exports.createProduct = createProduct;
 const getAllProducts = () => {
-    console.log(exports.products);
+    return exports.products;
 };
 exports.getAllProducts = getAllProducts;
 const searchProductsByName = (name) => {
