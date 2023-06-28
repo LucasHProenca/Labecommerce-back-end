@@ -18,13 +18,20 @@ export const users: TUsers[] = [
     }
 ]
 
-export const createUser = (user: TUsers) => {
-    users.push(user)
-    console.log(user)
+export const createUser = (id: string, name: string, email: string, password: string): void => {
+    const newUser: TUsers = {
+        id,
+        name,
+        email,
+        password,
+        createdAt: new Date().toISOString()
+    }
+    users.push(newUser)
+    console.log(newUser)
 }
 
-export const getAllUsers = () => {
-    console.log(users)
+export const getAllUsers = (): TUsers[] => {
+    return users
 }
 
 export const products: TProducts[] = [
@@ -44,13 +51,20 @@ export const products: TProducts[] = [
     }
 ]
 
-export const createProduct = (product: TProducts) => {
-    products.push(product)
-    console.log(product)
+export const createProduct = (id: string, name: string, price: number, description: string, imageUrl: string): void => {
+    const newProduct: TProducts = {
+        id,
+        name,
+        price,
+        description,
+        imageUrl
+    }
+    products.push(newProduct)
+    console.log(newProduct)
 }
 
-export const getAllProducts = () => {
-    console.log(products)
+export const getAllProducts = () : TProducts[] => {
+    return products
 }
 
 export const searchProductsByName = (name: string) => {
