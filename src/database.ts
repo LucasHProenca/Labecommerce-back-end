@@ -76,5 +76,4 @@ export const searchProductsByName = (name: string) => {
         })
         lista.push(novaLista)
         console.log(lista)
-   
 }
