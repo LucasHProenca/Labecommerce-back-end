@@ -71,7 +71,7 @@ app.post("/users", (req: Request, res: Response) => {
 
     users.push(newUser)
 
-    res.status(201).send("Cadastro realizado com sucesso")
+    res.status(201).send({message: "Cadastro realizado com sucesso", users})
 })
 
 app.post("/products", (req: Request, res: Response) => {
