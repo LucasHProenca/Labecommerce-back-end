@@ -35,109 +35,298 @@ app.get("/ping", (req: Request, res: Response) => {
 })
 
 app.get("/users", (req: Request, res: Response) => {
-    res.status(200).send(users)
+
+    try {
+
+        res.status(200).send(users)
+
+    } catch (error: any) {
+        console.log(error)
+
+        if (res.statusCode === 200) {
+            res.status(500)
+        }
+
+        res.send(error.message)
+    }
 })
 
 app.get("/products", (req: Request, res: Response) => {
-    res.status(200).send(products)
-})
+    try {
+        const nameToFind = req.query.name as string
+        if(nameToFind !== undefined) {
+            if(nameToFind.length < 1) {
+                res.statusCode = (400)
+                throw new Error("'Name' deve ter pelo menos 1 caractere")
+            }
+        }
+    
+        if (nameToFind) {
+            const result: TProducts[] = products.filter(
+                (product) => (product.name.toLowerCase().includes(nameToFind.toLowerCase()))
+            )
+            res.status(200).send(result)
+        } else {
+            res.status(200).send(products)
+        }
+        
+    } catch (error: any) {
+        console.log(error)
 
-app.get("/product", (req: Request, res: Response) => {
-    const nameToFind = req.query.name as string
-
-    if (nameToFind) {
-        const result: TProducts[] = products.filter(
-            (product) => (product.name.toLowerCase().includes(nameToFind.toLowerCase()))
-        )
-        res.status(200).send(result)
-    } else {
-        res.status(200).send(products)
+        if (res.statusCode === 200) {
+            res.status(500)
+        }
+        res.send(error.message)
     }
 })
 
 app.post("/users", (req: Request, res: Response) => {
-    const id = req.body.id as string
-    const name = req.body.name as string
-    const email = req.body.email as string
-    const password = req.body.password as string
+    try {
+        const id = req.body.id as string
+        const name = req.body.name as string
+        const email = req.body.email as string
+        const password = req.body.password as string
 
-    const newUser: TUsers = {
-        id,
-        name,
-        email,
-        password,
-        createdAt: new Date().toISOString()
+        if(typeof id !== "string") {
+            res.statusCode = (400)
+            throw new Error("'id' deve ser do tipo string")
+        }
+
+        if(typeof name !== "string"){
+            res.statusCode = (400)
+            throw new Error("'name' deve ser do tipo string")
+        }
+    
+        if(typeof email !== "string") {
+            res.statusCode = (400)
+            throw new Error("'email' deve ser do tipo string")
+        }
+
+        if(typeof password !== "string") {
+            res.statusCode = (400)
+            throw new Error("'password' deve ser do tipo string")
+        }
+
+        const clientExistsId = users.find((client) => client.id === id)
+        const clientExistsEmail = users.find((client) => client.email === email)
+
+        if(clientExistsId) {
+            res.statusCode = (400)
+            throw new Error("'id' já cadastrado")
+        }
+
+        if(clientExistsEmail) {
+            res.statusCode = (400)
+            throw new Error("'email' já cadastrado")
+        }
+
+        const newUser: TUsers = {
+            id,
+            name,
+            email,
+            password,
+            createdAt: new Date().toISOString()
+        }
+    
+        users.push(newUser)
+        res.status(201).send({ message: "Cadastro realizado com sucesso", users })
+        
+    } catch (error: any) {
+        console.log(error)
+
+        if (res.statusCode === 200) {
+            res.status(500)
+        }
+
+        res.send(error.message)
     }
 
-    users.push(newUser)
-
-    res.status(201).send({message: "Cadastro realizado com sucesso", users})
 })
 
 app.post("/products", (req: Request, res: Response) => {
-    const id = req.body.id as string
-    const name = req.body.name as string
-    const price = req.body.price as number
-    const description = req.body.description as string
-    const imageUrl = req.body.imageUrl as string
+    try {
+        const id = req.body.id as string
+        const name = req.body.name as string
+        const price = req.body.price as number
+        const description = req.body.description as string
+        const imageUrl = req.body.imageUrl as string
 
-    const newProduct: TProducts = {
-        id,
-        name,
-        price,
-        description,
-        imageUrl
+        if(typeof id !== "string") {
+            res.statusCode = (400)
+            throw new Error("'id' deve ser do tipo string")
+        }
+
+        if(typeof name !== "string"){
+            res.statusCode = (400)
+            throw new Error("'name' deve ser do tipo string")
+        }
+
+        if(typeof price !== "number"){
+            res.statusCode = (400)
+            throw new Error("'number' deve ser do tipo number")
+        }
+
+        if(typeof description !== "string") {
+            res.statusCode = (400)
+            throw new Error("'description' deve ser do tipo string")
+        }
+
+        if(typeof imageUrl !== "string"){
+            res.statusCode = (400)
+            throw new Error("'imageUrl' deve ser do tipo string")
+        }
+
+        const productExists = products.find((product) => product.id === id)
+
+        if(productExists) {
+            res.statusCode = (400)
+            throw new Error("'id' já cadastrado")
+        }
+    
+        const newProduct: TProducts = {
+            id,
+            name,
+            price,
+            description,
+            imageUrl
+        }
+    
+        products.push(newProduct)
+    
+        res.status(201).send({message :"Produto Cadastrado com sucesso", products})
+        
+    } catch (error: any) {
+        console.log(error)
+
+        if (res.statusCode === 200) {
+            res.status(500)
+        }
+
+        res.send(error.message)
     }
 
-    products.push(newProduct)
-
-    res.status(201).send("Produto Cadastrado com sucesso")
 })
 
 app.delete("/users/:id", (req: Request, res: Response) => {
-    const idToDelete = req.params.id
+    try {
+        const idToDelete = req.params.id
+    
+        const userIndex = users.findIndex((user) => user.id === idToDelete)
 
-    const userIndex = users.findIndex((user) => user.id === idToDelete)
-
-    if (userIndex >= 0) {
+        if (userIndex < 0) {
+            res.statusCode = (404)
+            throw new Error("Usuário não encontrado")
+        }
         users.splice(userIndex, 1)
+        res.status(200).send({ message: "User apagado com sucesso", users })
+        
+    } catch (error: any) {
+        console.log(error)
+
+        if (res.statusCode === 200) {
+            res.status(500)
+        }
+
+        res.send(error.message)
     }
 
-    res.status(200).send({ message: "User apagado com sucesso", users })
 })
 
 app.delete("/products/:id", (req: Request, res: Response) => {
-    const idToDelete = req.params.id
-
-    const productIndex = products.findIndex((product) => product.id === idToDelete)
-
-    if (productIndex >= 0) {
+    try {
+        const idToDelete = req.params.id
+    
+        const productIndex = products.findIndex((product) => product.id === idToDelete)
+    
+        if (productIndex < 0) {
+            res.statusCode = (404)
+            throw new Error("Produto não encontrado")
+        }
         products.splice(productIndex, 1)
-    }
+        res.status(200).send({ message: "Produto apagado com sucesso", products })
+        
+    } catch (error: any) {
+        console.log(error)
 
-    res.status(200).send({ message: "User apagado com sucesso", products })
+        if (res.statusCode === 200) {
+            res.status(500)
+        }
+
+        res.send(error.message)
+    }
 })
 
 app.put("/products/:id", (req: Request, res: Response) => {
-    const idToFind = req.params.id
-
-    const newId = req.body.id as string | undefined
-    const newName = req.body.name as string | undefined
-    const newDescription = req.body.description as string | undefined
-    const newImageUrl = req.body.imageUrl as string | undefined
-    const newPrice = req.body.price as number | undefined
-
-    const product = products.find((product) => product.id === idToFind)
-
-    if (product) {
-        product.id = newId || product.id
-        product.name = newName || product.name
-        product.description = newDescription || product.description
-        product.imageUrl = newImageUrl || product.imageUrl
-        product.price = isNaN(Number(newPrice))? product.price : newPrice as number
-    }
+    try {
+        const idToFind = req.params.id
+        const product = products.find((product) => product.id === idToFind)
     
+        if(!product) {
+            res.statusCode = (400)
+            throw new Error("Produto não cadastrado")
+        }
+    
+        const newId = req.body.id as string | undefined
+        const newName = req.body.name as string | undefined
+        const newDescription = req.body.description as string | undefined
+        const newImageUrl = req.body.imageUrl as string | undefined
+        const newPrice = req.body.price as number | undefined
 
-    res.status(200).send({message: "Produto atualizado com sucesso", product})
+        if(newId !== undefined) {
+            
+            if(typeof newId !== "string") {
+                res.statusCode = (400)
+                throw new Error("'id' deve ser do tipo string")
+            }
+        }
+
+        if(newName !== undefined) {
+            
+            if(typeof newName !== "string") {
+                res.statusCode = (400)
+                throw new Error("'name' deve ser do tipo string")
+            }
+        }
+
+        if(newDescription !== undefined) {
+            
+            if(typeof newDescription !== "string") {
+                res.statusCode = (400)
+                throw new Error("'description' deve ser do tipo string")
+            }
+        }
+
+        if(newImageUrl !== undefined) {
+            
+            if(typeof newImageUrl !== "string") {
+                res.statusCode = (400)
+                throw new Error("'imageUrl' deve ser do tipo string")
+            }
+        }
+
+        if(newPrice !== undefined) {
+            
+            if(typeof newPrice !== "number") {
+                res.statusCode = (400)
+                throw new Error("'number' deve ser do tipo string")
+            }
+        }
+    
+        if (product) {
+            product.id = newId || product.id
+            product.name = newName || product.name
+            product.description = newDescription || product.description
+            product.imageUrl = newImageUrl || product.imageUrl
+            product.price = isNaN(Number(newPrice)) ? product.price : newPrice as number
+        }
+        res.status(200).send({ message: "Produto atualizado com sucesso", product })
+    } catch (error: any) {
+        console.log(error)
+
+        if (res.statusCode === 200) {
+            res.status(500)
+        }
+        res.send(error.message)
+    }
 })
 
