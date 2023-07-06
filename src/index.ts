@@ -92,19 +92,22 @@ app.post("/users", (req: Request, res: Response) => {
             throw new Error("'id' deve ser do tipo string")
         }
 
-        if(typeof name !== "string"){
+        const nameRegex = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/
+        if(typeof name !== "string" || !name.match(nameRegex)){
             res.statusCode = (400)
-            throw new Error("'name' deve ser do tipo string")
+            throw new Error("'name' deve ser do tipo string e deve conter apenas letras")
         }
     
-        if(typeof email !== "string") {
+        const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+        if(typeof email !== "string" || !email.match(emailRegex)) {
             res.statusCode = (400)
-            throw new Error("'email' deve ser do tipo string")
+            throw new Error("'email' deve ter o formato adequado")
         }
 
-        if(typeof password !== "string") {
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,12}$/
+        if(typeof password !== "string" || !password.match(passwordRegex)) {
             res.statusCode = (400)
-            throw new Error("'password' deve ser do tipo string")
+            throw new Error("'password' deve possuir entre 8 e 12 caracteres, com letras maiúsculas e minúsculas e no mínimo um número e um caractere especial")
         }
 
         const clientExistsId = users.find((client) => client.id === id)
