@@ -33,4 +33,49 @@ VALUES
 ("prod004", "Teclado", 135.90, "Excelente teclado para trabalho e jogos", "https://picsum.photos/seed/Teclado/400"),
 ("prod005", "Mousepad", 79.99, "Mousepad com led 900x300mm", "https://picsum.photos/seed/Mousepad/400");
 
+SELECT * FROM products;
+
+-- Aprofundamento sql, desenvolvendo funcionalidades
+
+-- Get All Users
+
+SELECT * FROM users;
+
+-- Get All Products 
+
+SELECT * FROM products;
+
+-- Get All Products com filtro
+
 SELECT * FROM products
+WHERE name LIKE "%gamer%";
+
+-- Create user
+
+INSERT INTO users (id, name, email, password, create_at)
+VALUES("u004", "bananinha", "bananinha@email.com", "bananinha123", dateTime ('now'));
+
+-- Create product
+
+INSERT INTO products (id, name, price, description, image_url)
+VALUES("prod006", "bananinha", 5.99, "uma bananinha", "imagineumabananinha.com");
+
+-- Delete users By Id
+
+DELETE FROM users
+WHERE id = "u002";
+
+-- Delete products By Id
+
+DELETE FROM products
+WHERE id = "prod003";
+
+-- Edit products By Id
+
+UPDATE products
+SET 
+name = "Fonte",
+price = 500,
+description = "Fonte de energia",
+image_url = "https://picsum.photos/seed/Fonte/400"
+WHERE id = "prod006";
