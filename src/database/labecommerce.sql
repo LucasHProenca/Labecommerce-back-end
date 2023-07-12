@@ -6,10 +6,10 @@ CREATE TABLE users (
     name TEXT NOT NULL,
     email TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL,
-    create_at TEXT NOT NULL
+    created_at TEXT NOT NULL
 );
 
-INSERT INTO users (id, name, email, password, create_at)
+INSERT INTO users (id, name, email, password, created_at)
 VALUES
 ("u001", "Fulano", "fulano@email.com", "fulano123", dateTime ('now')),
 ("u002", "Beltrana", "beltrana@email.com", "beltrana00", dateTime ('now')),
@@ -52,7 +52,7 @@ WHERE name LIKE "%gamer%";
 
 -- Create user
 
-INSERT INTO users (id, name, email, password, create_at)
+INSERT INTO users (id, name, email, password, created_at)
 VALUES("u004", "bananinha", "bananinha@email.com", "bananinha123", dateTime ('now'));
 
 -- Create product
@@ -79,3 +79,39 @@ price = 500,
 description = "Fonte de energia",
 image_url = "https://picsum.photos/seed/Fonte/400"
 WHERE id = "prod006";
+
+-- Relações Sql I
+
+CREATE TABLE purchases(
+    id TEXT PRIMARY KEY UNIQUE NOT NULL,
+    buyer TEXT NOT NULL,
+    total_price REAL NOT NULL,
+    created_at TEXT NOT NULL,
+    FOREIGN KEY (buyer) REFERENCES users(id)
+);
+
+INSERT INTO purchases(id, buyer, total_price, created_at)
+VALUES
+('purc001', 'u001', 600.00, dateTime ('now')),
+('purc002', 'u001', 200.00, dateTime ('now')),
+('purc003', 'u003', 850.00, dateTime ('now')),
+('purc004', 'u003', 350.00, dateTime ('now')),
+('purc005', 'u004', 400.00, dateTime ('now')),
+('purc006', 'u004', 399.90, dateTime ('now'));
+
+SELECT * FROM purchases;
+
+UPDATE purchases
+SET total_price = 300.00
+WHERE id = 'purc006';
+
+SELECT 
+purchases.id AS purchase_id,
+purchases.buyer AS buyer_id,
+users.name AS buyer_name,
+users.email,
+purchases.total_price,
+purchases.created_at
+FROM purchases
+INNER JOIN users
+ON purchases.buyer = users.id;
