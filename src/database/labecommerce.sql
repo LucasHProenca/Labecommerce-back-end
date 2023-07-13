@@ -88,6 +88,8 @@ CREATE TABLE purchases(
     total_price REAL NOT NULL,
     created_at TEXT NOT NULL,
     FOREIGN KEY (buyer) REFERENCES users(id)
+     ON UPDATE CASCADE
+     ON DELETE CASCADE
 );
 
 INSERT INTO purchases(id, buyer, total_price, created_at)
@@ -102,8 +104,8 @@ VALUES
 SELECT * FROM purchases;
 
 UPDATE purchases
-SET total_price = 300.00
-WHERE id = 'purc006';
+SET total_price = 329.99
+WHERE id = 'purc005';
 
 SELECT 
 purchases.id AS purchase_id,
@@ -115,3 +117,65 @@ purchases.created_at
 FROM purchases
 INNER JOIN users
 ON purchases.buyer = users.id;
+
+-- Relações sql ii
+
+CREATE TABLE purchases_products(
+    purchase_id TEXT NOT NULL,
+    product_id TEXT NOT NULL,
+    quantity INTEGER NOT NULL,
+    FOREIGN KEY (purchase_id) REFERENCES purchases(id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+);
+
+INSERT INTO purchases_products(purchase_id, product_id, quantity)
+VALUES
+('purc001', 'prod006', 2),
+('purc002', 'prod001', 3),
+('purc003', 'prod002', 1),
+('purc004', 'prod004', 2),
+('purc005', 'prod001', 1),
+('purc005', 'prod005', 1),
+('purc006', 'prod001', 1),
+('purc006', 'prod002', 1),
+('purc006', 'prod004', 1),
+('purc006', 'prod005', 1),
+('purc006', 'prod006', 1);
+
+DELETE FROM purchases_products
+WHERE purchase_id = 'purc006';
+
+SELECT * FROM purchases_products
+INNER JOIN purchases
+ON purchases_products.purchase_id = purchases.id
+INNER JOIN products
+ON purchases_products.product_id = products.id;
+
+
+-- Tabela igual a acima só que mais bonita.
+SELECT 
+purchases_products.purchase_id AS purchaseId,
+purchases_products.product_id AS productId,
+products.name,
+products.price,
+purchases_products.quantity,
+purchases.buyer,
+users.name,
+purchases_products.quantity * products.price AS subTotal,
+purchases.total_price,
+purchases.created_at
+FROM purchases_products
+INNER JOIN products
+ON purchases_products.product_id = products.id
+INNER JOIN purchases
+ON purchases_products.purchase_id = purchases.id
+INNER JOIN users
+ON purchases.buyer = users.id;
+
+
+
+
