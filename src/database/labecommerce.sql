@@ -67,8 +67,8 @@ WHERE id = "u002";
 
 -- Delete products By Id
 
-DELETE FROM products
-WHERE id = "prod003";
+DELETE FROM purchases
+WHERE id = "purc010";
 
 -- Edit products By Id
 
@@ -146,6 +146,20 @@ VALUES
 ('purc006', 'prod005', 1),
 ('purc006', 'prod006', 1);
 
+INSERT INTO purchases_products(purchase_id, product_id, quantity)
+VALUES
+('purc003', 'prod002', 2);
+
+
+UPDATE purchases_products
+SET product_id = 'prod010'
+WHERE product_id = 'prod001';
+
+
+UPDATE purchases
+SET id = 'purc010'
+WHERE id = 'purc006';
+
 DELETE FROM purchases_products
 WHERE purchase_id = 'purc006';
 
@@ -175,6 +189,10 @@ INNER JOIN purchases
 ON purchases_products.purchase_id = purchases.id
 INNER JOIN users
 ON purchases.buyer = users.id;
+
+DROP TABLE purchases_products;
+
+
 
 
 
