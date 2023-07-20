@@ -11,7 +11,6 @@ import { TProducts, TUsers } from "./types";
 import { db } from "./database/knex";
 import { resourceLimits } from "worker_threads";
 
-console.log("Hello, faruqi")
 // console.log(users)
 // console.log(products)
 // DA PRA FAZER COM ARGV TBM createUser(process.argv[2], process.argv[3], process.argv[4], process.argv[5])
@@ -49,29 +48,12 @@ app.get("/users", async (req: Request, res: Response) => {
         }
 
         if(idToFind) {
-            const result = await db("users").where("name", "LIKE", `%${idToFind}%`)
+            const result = await db("users").where("id", "LIKE", `%${idToFind}%`)
             res.status(200).send(result)
         } else {
             const users = await db("users")
             res.status(200).send(users)
         }
-
-        // if (idToFind) {
-        //     const result = await db.raw(`
-        //     SELECT * from users
-        //     WHERE name LIKE '%${idToFind}%'
-        //     `)
-        //     res.status(200).send(result)
-        // } else {
-        //     const products = await db.raw(`
-        //     SELECT * FROM users;
-        //     `)
-        //     res.status(200).send(products)
-        // }
-        // const result = await db.raw(`
-        // SELECT * FROM users;
-        // `)
-        // res.status(200).send(result)
 
     } catch (error: any) {
         console.log(error)
@@ -101,28 +83,6 @@ app.get("/products", async (req: Request, res: Response) => {
             const products = await db("products")
             res.status(200).send(products)
         }
-
-        // if (nameToFind) {
-        //     const result: TProducts[] = products.filter(
-        //         (product) => (product.name.toLowerCase().includes(nameToFind.toLowerCase()))
-        //     )
-        //     res.status(200).send(result)
-        // } else {
-        //     res.status(200).send(products)
-        // }
-
-        // if (nameToFind) {
-        //     const result = await db.raw(`
-        //     SELECT * from products
-        //     WHERE name LIKE '%${nameToFind}%'
-        //     `)
-        //     res.status(200).send(result)
-        // } else {
-        //     const products = await db.raw(`
-        //     SELECT * FROM products;
-        //     `)
-        //     res.status(200).send(products)
-        // }
 
     } catch (error: any) {
         console.log(error)
@@ -165,29 +125,6 @@ app.post("/users", async (req: Request, res: Response) => {
             throw new Error("'password' deve possuir entre 8 e 12 caracteres, com letras maiúsculas e minúsculas e no mínimo um número e um caractere especial")
         }
 
-        // const clientExistsId = users.find((client) => client.id === id)
-        // const clientExistsEmail = users.find((client) => client.email === email)
-
-        // if(clientExistsId) {
-        //     res.statusCode = (400)
-        //     throw new Error("'id' já cadastrado")
-        // }
-
-        // if(clientExistsEmail) {
-        //     res.statusCode = (400)
-        //     throw new Error("'email' já cadastrado")
-        // }
-
-        // const [userIdExists] = await db.raw(`
-        // SELECT * FROM users
-        // WHERE id = '${id}';
-        // `)
-
-        // const [userEmailExists] = await db.raw(`
-        // SELECT * FROM users
-        // WHERE email = '${email}';
-        // `)
-
         const [userIdExists] = await db("users").where({id: id})
         const [userEmailExists] = await db("users").where({email: email})
 
@@ -201,35 +138,15 @@ app.post("/users", async (req: Request, res: Response) => {
             throw new Error("'email' já cadastrado")
         }
 
-        // const newUser: TUsers = {
-        //     id,
-        //     name,
-        //     email,
-        //     password,
-        //     createdAt: new Date().toISOString()
-        // }
-
-        // users.push(newUser)
-
-        // await db.raw(`
-        // INSERT INTO users (id, name, email, password, created_at)
-        // VALUES('${id}', '${name}', '${email}', '${password}', '${new Date().toISOString()}');
-        // `)
-
         await db.insert({
             id,
             name,
             email,
             password,
-            created_at: new Date().toISOString()
+            created_at: new Date().toLocaleString("pt-br")
         }).into("users")
 
-        // const result = await db.raw(`
-        // SELECT * FROM users 
-        // WHERE id = '${id}'
-        // `)
-
-        res.status(201).send({ message: "Cadastrado realizado com sucesso", userIdExists })
+        res.status(201).send({ message: "Cadastrado realizado com sucesso"})
 
     } catch (error: any) {
         console.log(error)
@@ -277,44 +194,12 @@ app.post("/products", async (req: Request, res: Response) => {
             throw new Error("'imageUrl' deve ser do tipo string")
         }
 
-        // const productExists = products.find((product) => product.id === id)
-
-        // if (productExists) {
-        //     res.statusCode = (400)
-        //     throw new Error("'id' já cadastrado")
-        // }
-
-        // const newProduct: TProducts = {
-        //     id,
-        //     name,
-        //     price,
-        //     description,
-        //     imageUrl
-        // }
-
-        // products.push(newProduct)
-
-        // const [productIdExists] = await db.raw(`
-        // SELECT * FROM products
-        // WHERE id = '${id}';
-        // `)
-
         const [productIdExists] = await db("products").where({id: id})
 
         if (productIdExists) {
             res.statusCode = (400)
             throw new Error("'id' já cadastrado")
         }
-
-        // await db.raw(`
-        // INSERT INTO products (id, name, price, description, image_url)
-        // VALUES('${id}', '${name}', '${price}', '${description}', '${imageUrl}');
-        // `)
-
-        // const result = await db.raw(`
-        // SELECT * FROM products 
-        // WHERE id = '${id}'
-        // `)
 
         await db.insert({
             id,
@@ -337,51 +222,9 @@ app.post("/products", async (req: Request, res: Response) => {
 
 })
 
-// Create Purchase AINDA NÃO FUNCIONA
+// Create Purchase 
 app.post("/purchases", async (req: Request, res: Response) => {
     try {
-
-        // const purchaseId = req.body.purchaseId as string
-        // const productId = req.body.productId as string
-        // const quantity = req.body.quantity as number
-
-        // if (typeof purchaseId !== "string") {
-        //     res.statusCode = (400)
-        //     throw new Error("'purchaseId' deve ser do tipo string")
-        // }
-
-        // if (typeof productId !== "string") {
-        //     res.statusCode = (400)
-        //     throw new Error("'productId' deve ser do tipo string")
-        // }
-
-        // if (typeof quantity !== "number") {
-        //     res.statusCode = (400)
-        //     throw new Error("'quantity' deve ser do tipo number")
-        // }
-
-        // const [productIdExists] = await db.raw(`
-        // SELECT * FROM products
-        // WHERE id = '${productId}';
-        // `)
-
-        // if (!productIdExists) {
-        //     res.statusCode = (400)
-        //     throw new Error("Produto não cadastrado, cadastre antes de realizar a compra")
-        // }
-
-        // await db.raw(`
-        // INSERT INTO purchases_products (purchase_id, product_id, quantity)
-        // VALUES('${purchaseId}', '${productId}', '${quantity}');
-        // `)
-
-        // const result = await db.raw(`
-        // SELECT * FROM purchases 
-        // WHERE purchase_id = '${purchaseId}'
-        // `)
-
-        // res.status(201).send({ message: "Pedido realizado com sucesso", result })
-
         const id = req.body.id 
         const buyer = req.body.buyer 
         const products = req.body.products
@@ -422,7 +265,7 @@ app.post("/purchases", async (req: Request, res: Response) => {
             id,
             buyer,
             total_price: totalPrice,
-            created_at: new Date().toISOString()
+            created_at: new Date().toLocaleString("pt-br")
         }
         await db('purchases').insert(newPurchase)
 
@@ -435,7 +278,7 @@ app.post("/purchases", async (req: Request, res: Response) => {
             await db('purchases_products').insert(newPurchaseProducts)
         }
 
-        res.status(201).send({message: "Compra cadastrada com sucesso"})
+        res.status(201).send({message: "Compra realizada com sucesso"})
 
     } catch (error: any) {
         console.log(error)
@@ -453,16 +296,13 @@ app.delete("/users/:id", async (req: Request, res: Response) => {
     try {
         const idToDelete = req.params.id
 
-        // const userIndex = users.findIndex((user) => user.id === idToDelete)
-
         const [userIndex] = await db.select("*").from("users").where({id: idToDelete})
 
         if (userIndex < 0 || !userIndex) {
             res.statusCode = (404)
             throw new Error("Usuário não encontrado")
         }
-        // users.splice(userIndex, 1)
-
+        
         await db.delete().from("users").where({id: idToDelete})
         res.status(200).send({ message: "User apagado com sucesso"})
 
@@ -483,15 +323,13 @@ app.delete("/products/:id", async (req: Request, res: Response) => {
     try {
         const idToDelete = req.params.id
 
-        // const productIndex = products.findIndex((product) => product.id === idToDelete)
-
         const [productIndex] = await db.select("*").from("products").where({id: idToDelete})
 
         if (productIndex < 0 || !productIndex) {
             res.statusCode = (404)
             throw new Error("Produto não encontrado")
         }
-        // products.splice(productIndex, 1)
+
         await db.delete().from("products").where({id: idToDelete})
         res.status(200).send({ message: "Produto apagado com sucesso"})
 
@@ -509,7 +347,6 @@ app.delete("/products/:id", async (req: Request, res: Response) => {
 // JÁ REFATORADO
 app.delete("/purchases/:id", async (req: Request, res: Response) => {
     try {
-
         const idToDelete = req.params.id
 
         const [purchase] = await db("purchases_products").where({purchase_id: idToDelete})
@@ -527,7 +364,7 @@ app.delete("/purchases/:id", async (req: Request, res: Response) => {
             res.status(404)
             throw new Error("'id' da compra não encontrado")
         }
-        res.status(200).send({message : "compra apagada com sucesso"})
+        res.status(200).send({message : "Pedido cancelado com sucesso"})
 
     } catch (error: any) {
         console.log(error)
@@ -543,17 +380,8 @@ app.delete("/purchases/:id", async (req: Request, res: Response) => {
 app.put("/products/:id", async (req: Request, res: Response) => {
     try {
         const idToFind = req.params.id
-        // const product = products.find((product) => product.id === idToFind)
-
-        // if (!product) {
-        //     res.statusCode = (400)
-        //     throw new Error("Produto não cadastrado")
-        // }
-
-        const [productIdExists] = await db.raw(`
-        SELECT * FROM products
-        WHERE id = '${idToFind}';
-        `)
+       
+        const [productIdExists] = await db.select("*").from("products").where({id: idToFind})
 
         const newId = req.body.id as string | undefined
         const newName = req.body.name as string | undefined
@@ -601,28 +429,21 @@ app.put("/products/:id", async (req: Request, res: Response) => {
             }
         }
 
-        if (productIdExists) {
-            // product.id = newId || product.id
-            // product.name = newName || product.name
-            // product.description = newDescription || product.description
-            // product.imageUrl = newImageUrl || product.imageUrl
-            // product.price = isNaN(Number(newPrice)) ? product.price : newPrice as number
-            await db.raw(`
-            UPDATE products
-            SET
-                id = "${newId || productIdExists.id}",
-                name = "${newName || productIdExists.name}",
-                price = "${isNaN(Number(newPrice)) ? productIdExists.price : newPrice as number}",
-                description = "${newDescription || productIdExists.description}",
-                image_url = "${newImageUrl || productIdExists.image_url}"
-            WHERE
-                id = "${idToFind}"
-            `)
-            res.status(200).send({ message: "Produto atualizado com sucesso" })
+         if (productIdExists) {    
+            await db.update({
+                id: newId || productIdExists.id,
+                name: newName || productIdExists.name,
+                price: isNaN(Number(newPrice)) ? productIdExists.price : newPrice as number,
+                description: newDescription || productIdExists.description,
+                image_url: newImageUrl || productIdExists.image_url
+            }).from("products").where({id: idToFind})
+            
         } else {
             res.statusCode = (400)
             throw new Error("Produto não cadastrado, cadastre antes de editar")
         }
+
+        res.status(200).send({ message: "Produto atualizado com sucesso" })
     } catch (error: any) {
         console.log(error)
 
@@ -642,14 +463,14 @@ app.get("/purchases/:id", async (req: Request, res: Response) => {
         const [purchaseIdExists] = await db.select("*").from("purchases").where({id: idToFind})
 
         if (purchaseIdExists) {
-            const result = await db("purchases")
+            const [result] = await db("purchases")
                 .select(
                     "purchases.id AS purchaseId",
                     "purchases.buyer AS buyerId",
                     "users.name AS buyerName",
                     "users.email AS buyerEmail",
                     "purchases.total_price AS totalPrice",
-                    "purchases.created_at", 
+                    "purchases.created_at AS createdAt", 
                 )
                 .innerJoin("users",
                     "purchases.buyer",
@@ -657,8 +478,26 @@ app.get("/purchases/:id", async (req: Request, res: Response) => {
                     "users.id"
                 )
                 .where("purchases.id", "=", `${idToFind}`)
-            res.status(200).send(result)
-        } else {
+
+            const products = await db("purchases_products")
+            .select(
+                "products.id AS id",
+                "products.name AS name",
+                "products.price AS price",
+                "products.description AS description",
+                "products.image_url AS imageUrl",
+                "purchases_products.quantity AS quantity"
+            )
+            .innerJoin(
+                "products",
+                "purchases_products.product_id",
+                "=",
+                "products.id"
+            )
+            .where("purchases_products.purchase_id", "=", `${idToFind}`)
+
+            res.status(200).send({...result, products})
+        }else {
             res.status(404)
             throw new Error("'id' não encontrada")
         }
