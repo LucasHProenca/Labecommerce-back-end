@@ -190,7 +190,7 @@ ON purchases_products.purchase_id = purchases.id
 INNER JOIN users
 ON purchases.buyer = users.id;
 
-DROP TABLE purchases_products;
+DROP TABLE products;
 
 
 
