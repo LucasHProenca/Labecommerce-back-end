@@ -1,8 +1,6 @@
-# Labecommerce-back-end
-
-// Além disso, você deve criar um README.md para seu repositório, explicando a API Labecommerce. Nesse README, inclua o link para a coleção de requisições do passo a.
-
 ![17](https://github.com/LucasHProenca/Labecommerce-back-end/assets/106993403/afe9406a-8a0c-4c9d-b46b-9a322abacfb0)
+
+---
 
 <p align="center">
  <a href="#-sobre-o-projeto">Sobre</a> •
@@ -193,13 +191,13 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 ## 🦸 Autor
 
-<a>
- <img style="border-radius: 50%;" src=![LucasProenca](https://github.com/LucasHProenca/Labecommerce-back-end/assets/106993403/1c429431-158f-4781-b5cc-caf62467027b) width="100px;" alt=""/>
+
+ ![LucasProenca](https://github.com/LucasHProenca/Labecommerce-back-end/assets/106993403/9abf8ee7-9527-42f8-9151-04ccd3db2d97)
  <br />
- <sub><b>Lucas Henrique Proença</b></sub></a> 
+ <sub><b>Lucas Henrique Proença</b></sub>
  <br />
 
-[![Linkedin Badge](https://img.shields.io/badge/-Thiago-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/tgmarinho/)](https://www.linkedin.com/in/lucas-proen%C3%A7a-512650106/) 
+![Linkedin Badge](https://www.linkedin.com/in/lucas-proen%C3%A7a-512650106/) 
 
 ---
 
