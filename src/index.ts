@@ -48,10 +48,22 @@ app.get("/users", async (req: Request, res: Response) => {
         }
 
         if(idToFind) {
-            const result = await db("users").where("id", "LIKE", `%${idToFind}%`)
+            const result = await db.select(
+                "users.id",
+                "users.name",
+                "users.email",
+                "users.password",
+                "users.created_at AS createdAt"
+            ).from("users").where("id", "LIKE", `%${idToFind}%`)
             res.status(200).send(result)
         } else {
-            const users = await db("users")
+            const users = await db.select(
+                "users.id",
+                "users.name",
+                "users.email",
+                "users.password",
+                "users.created_at AS createdAt"
+            ).from("users")
             res.status(200).send(users)
         }
 
@@ -77,10 +89,22 @@ app.get("/products", async (req: Request, res: Response) => {
         }
 
         if(nameToFind) {
-            const result = await db("products").where("name", "LIKE", `%${nameToFind}%`)
+            const result = await db.select(
+                "products.id",
+                "products.name",
+                "products.price",
+                "products.description",
+                "products.image_url AS imageUrl"
+            ).from("products").where("name", "LIKE", `%${nameToFind}%`)
             res.status(200).send(result)
         } else {
-            const products = await db("products")
+            const products = await db.select(
+                "products.id",
+                "products.name",
+                "products.price",
+                "products.description",
+                "products.image_url AS imageUrl"
+            ).from("products")
             res.status(200).send(products)
         }
 
@@ -240,10 +264,16 @@ app.post("/purchases", async (req: Request, res: Response) => {
         }
 
         const [purchase] = await db("purchases").where({id})
+        const [user] = await db("users").where({id: buyer})
 
         if(purchase) {
             res.status(400)
-            throw new Error("'purchase' já existe")
+            throw new Error("Esse pedido já existe")
+        }
+
+        if(!user) {
+            res.status(400)
+            throw new Error("Usuário não cadastrado")
         }
 
         const resultProducts = []
@@ -278,7 +308,7 @@ app.post("/purchases", async (req: Request, res: Response) => {
             await db('purchases_products').insert(newPurchaseProducts)
         }
 
-        res.status(201).send({message: "Compra realizada com sucesso"})
+        res.status(201).send({message: "Pedido realizado com sucesso"})
 
     } catch (error: any) {
         console.log(error)
@@ -304,7 +334,7 @@ app.delete("/users/:id", async (req: Request, res: Response) => {
         }
         
         await db.delete().from("users").where({id: idToDelete})
-        res.status(200).send({ message: "User apagado com sucesso"})
+        res.status(200).send({ message: "Usuário apagado com sucesso"})
 
     } catch (error: any) {
         console.log(error)
@@ -356,13 +386,13 @@ app.delete("/purchases/:id", async (req: Request, res: Response) => {
             await db("purchases").del().where({id: idToDelete})
         }else {
             res.status(404)
-            throw new Error("'id' da compra não encontrado")
+            throw new Error("'id' do pedido não encontrado")
         }
         if(purchase) {
             await db("purchases_products").del().where({purchase_id: idToDelete})
         }else {
             res.status(404)
-            throw new Error("'id' da compra não encontrado")
+            throw new Error("'id' do pedido não encontrado")
         }
         res.status(200).send({message : "Pedido cancelado com sucesso"})
 
