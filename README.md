@@ -175,8 +175,33 @@ A requisição deletePurchaseById tem apenas uma funcionalidade, onde é necess�
 
 ![deletePurchaseByIdResponse](https://github.com/LucasHProenca/Labecommerce-back-end/assets/106993403/5b7292fe-ad11-40e0-acfe-735c0cf2df92)
 
+---
 
+## 🛠 Tecnologias
 
+As seguintes ferramentas foram usadas na construção do projeto:
+
+#### **API** ([NodeJS](https://nodejs.org/en/)  +  [TypeScript](https://www.typescriptlang.org/))
+
+-   **[APIs & Express](https://expressjs.com/pt-br/)**
+-   **[CORS](https://expressjs.com/en/resources/middleware/cors.html)**
+-   **[SQLite](https://github.com/mapbox/node-sqlite3)**
+-   **[Knex](https://knexjs.org/guide/query-builder.html)**
+-   **[ts-node](https://github.com/TypeStrong/ts-node)**
+
+---
+
+## 🦸 Autor
+
+<a>
+ <img style="border-radius: 50%;" src=![LucasProenca](https://github.com/LucasHProenca/Labecommerce-back-end/assets/106993403/1c429431-158f-4781-b5cc-caf62467027b) width="100px;" alt=""/>
+ <br />
+ <sub><b>Lucas Henrique Proença</b></sub></a> 
+ <br />
+
+[![Linkedin Badge](https://img.shields.io/badge/-Thiago-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/tgmarinho/)](https://www.linkedin.com/in/lucas-proen%C3%A7a-512650106/) 
+
+---
 
 
 
