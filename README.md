@@ -63,7 +63,7 @@ $ npm install
 # Execute a aplicação em modo de desenvolvimento
 $ npm run dev
 
-# O servidor inciará na porta:3003 - acesse http://localhost:3003 
+# O servidor inciará na porta:3003 
 
 ```
 
