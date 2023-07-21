@@ -1,4 +1,4 @@
-<img align="center" src="https://github.com/LucasHProenca/Labecommerce-back-end/assets/106993403/afe9406a-8a0c-4c9d-b46b-9a322abacfb0" />
+<img align="center" src="https://github.com/LucasHProenca/Labecommerce-back-end/assets/106993403/afe9406a-8a0c-4c9d-b46b-9a322abacfb0" width="100%;" alt="" />
 
 ---
 
