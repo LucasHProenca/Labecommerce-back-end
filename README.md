@@ -45,6 +45,8 @@ Feito isso acesse a documentação da [API](https://documenter.getpostman.com/vi
 
 ### Requisições
 
+#### ATENÇÃO! Todos os exemplos são fictícios, pois não haveria sentido em disponibilizarmos os dados de nossos clientes, portanto use essa API para construir a sua própria loja online.
+
 #### getAllUsers
 A requisição getAllUsers tem duas funcionalidades diferentes:
 
