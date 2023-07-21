@@ -1,5 +1,6 @@
-![17](https://github.com/LucasHProenca/Labecommerce-back-end/assets/106993403/afe9406a-8a0c-4c9d-b46b-9a322abacfb0)
-
+<h1 align="center">
+<img src=![17](https://github.com/LucasHProenca/Labecommerce-back-end/assets/106993403/afe9406a-8a0c-4c9d-b46b-9a322abacfb0) />
+</h1>
 ---
 
 <p align="center">
@@ -191,13 +192,12 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 ## 🦸 Autor
 
-
- ![LucasProenca](https://github.com/LucasHProenca/Labecommerce-back-end/assets/106993403/9abf8ee7-9527-42f8-9151-04ccd3db2d97)
+ <img src=![LucasProenca](https://github.com/LucasHProenca/Labecommerce-back-end/assets/106993403/9abf8ee7-9527-42f8-9151-04ccd3db2d97)/> 
  <br />
  <sub><b>Lucas Henrique Proença</b></sub>
  <br />
 
-![Linkedin Badge](https://www.linkedin.com/in/lucas-proen%C3%A7a-512650106/) 
+[![Linkedin Badge](https://img.shields.io/badge/-Lucas-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/lucas-proen%C3%A7a-512650106/)](https://www.linkedin.com/in/lucas-proen%C3%A7a-512650106/) 
 
 ---
 
