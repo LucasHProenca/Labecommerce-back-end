@@ -40,7 +40,33 @@ Esse bootcamp é uma experiência online é um programa com mais de 1000 horas d
 
 ### Pré-requisitos
 
-Antes de começar, você vai precisar ter instalado em sua máquina o [Postman](https://www.postman.com/downloads/), é possível também utilizar a API pela versão web do Postman, no entanto, utilizaremos a versão para desktop para minimizar quaisquer chances de problemas.
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+[Git](https://git-scm.com), [Node.js](https://nodejs.org/en/), [Postman](https://www.postman.com/downloads/), é possível também utilizar a API pela versão web do Postman, no entanto, utilizaremos a versão para desktop para minimizar quaisquer chances de problemas.
+Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
+
+#### 🎲 Rodando a API
+
+```bash
+
+# Clone este repositório
+$ git clone "link-do-repositório-git
+
+# Acesse a pasta do projeto no terminal/cmd
+$ cd Labecommerce-back-end
+
+# Para abrir o vsCode
+$ code .
+
+# Instale as dependências
+$ npm install
+
+# Execute a aplicação em modo de desenvolvimento
+$ npm run dev
+
+# O servidor inciará na porta:3003 - acesse http://localhost:3003 
+
+```
+
 Feito isso acesse a documentação da [API](https://documenter.getpostman.com/view/27682612/2s93zFWJwG) e clique em "Run in Postman" localizado no canto superior direito para abrir dentro do app.
 
 ### Requisições
