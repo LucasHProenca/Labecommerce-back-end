@@ -84,7 +84,7 @@ Caso um produto cadastrado seja enviado como paramêtro, apenas ele será retorn
 
 
 #### createUser
-A requisição createUser tem apenas uma funcionalidade, porém alguns dados precisam ser inseridos no corpo da requisição, são esses:
+A requisição createUser tem apenas a funcionalidade de criar um novo usuário, porém alguns dados precisam ser inseridos no corpo da requisição, são esses:
 
 "id",
 "name",
@@ -101,7 +101,7 @@ Caso o "email" já tenha sido cadastrado por outro usuário ou, não possua o fo
 
 
 ##### createProduct
-A requisição createProduct tem apenas uma funcionalidade, porém alguns dados precisam ser inseridos no corpo da requisição, são esses:
+A requisição createProduct possui apenas a funcionalidade de criar um novo produto, porém alguns dados precisam ser inseridos no corpo da requisição, são esses:
 
 "id",
 "name",
@@ -117,7 +117,7 @@ Caso o "id" já tenha sido cadastrado por outro usuário, não será possível c
 
 
 #### deleteUserById
-A requisição deleteUserById tem apenas uma funcionalidade, onde é necessário enviar um "id" de um usuário junto ao caminho da requisição, contudo, caso o mesmo não esteja dentro do banco de dados, a deleção não será realizada e o usuário será informado da inconformidade.
+A requisição deleteUserById tem apenas a funcionalidade de apagar um usuário, onde é necessário enviar um "id" de um usuário junto ao caminho da requisição, contudo, caso o mesmo não esteja dentro do banco de dados, a deleção não será realizada e o usuário será informado da inconformidade.
 
 ![deleteUserByIdRequest](https://github.com/LucasHProenca/Labecommerce-back-end/assets/106993403/0df690e5-e949-4281-a741-71692831fa6d)
 
@@ -125,7 +125,7 @@ A requisição deleteUserById tem apenas uma funcionalidade, onde é necessário
 
 
 #### deleteProductById
-A requisição deleteProductById tem apenas uma funcionalidade, onde é necessário enviar um "id" de um produto junto ao caminho da requisição, contudo, caso o mesmo não esteja dentro do banco de dados, a deleção não será realizada e o usuário será informado da inconformidade.
+A requisição deleteProductById tem apenas a funcionalidade de apagar um produto, onde é necessário enviar um "id" de um produto junto ao caminho da requisição, contudo, caso o mesmo não esteja dentro do banco de dados, a deleção não será realizada e o usuário será informado da inconformidade.
 
 ![deleteProductByIdRequest](https://github.com/LucasHProenca/Labecommerce-back-end/assets/106993403/55defc99-6db7-45c3-bd44-515ab721e8a9)
 
@@ -143,7 +143,7 @@ Com isso em mente, podemos concluir que, se, no corpo da requisição for passad
 
 
 #### createPurchase
-A requisição createPurchase tem apenas uma funcionalidade, porém alguns dados precisam ser inseridos no corpo da requisição, são esses:
+A requisição createPurchase tem apenas a funcionalidade de criar um novo pedido, porém alguns dados precisam ser inseridos no corpo da requisição, são esses:
 
 "id",
 "buyer",
@@ -161,7 +161,7 @@ Caso o "id" do produto não se encontre na lista de produtos, não será possív
 
 
 #### getPurchaseById
-A requisição getPurchaseById tem apenas uma funcionalidade, onde é necessário enviar um "id" de um pedido junto ao caminho da requisição, contudo, caso o mesmo não esteja dentro do banco de dados, nada acontecerá e o usuário será informado da inconformidade.
+A requisição getPurchaseById tem apenas a funcionalidade de verificar quais itens foram comprados em certo pedido, onde é necessário enviar um "id" de um pedido junto ao caminho da requisição, contudo, caso o mesmo não esteja dentro do banco de dados, nada acontecerá e o usuário será informado da inconformidade.
 
 ![getPurchaseByIdRequest](https://github.com/LucasHProenca/Labecommerce-back-end/assets/106993403/18249efc-7a9a-43c6-9426-573fa1a237fb)
 
@@ -169,7 +169,7 @@ A requisição getPurchaseById tem apenas uma funcionalidade, onde é necessári
 
 
 #### deletePurchaseById
-A requisição deletePurchaseById tem apenas uma funcionalidade, onde é necessário enviar um "id" de um pedido junto ao caminho da requisição, contudo, caso o mesmo não esteja dentro do banco de dados, a deleção não será realizada e o usuário será informado da inconformidade.
+A requisição deletePurchaseById tem apenas a funcionalidade de cancelar um pedido, onde é necessário enviar um "id" de um pedido junto ao caminho da requisição, contudo, caso o mesmo não esteja dentro do banco de dados, a deleção não será realizada e o usuário será informado da inconformidade.
 
 ![deletePurchaseByIdRequest](https://github.com/LucasHProenca/Labecommerce-back-end/assets/106993403/20d0e2fc-4d5c-4ceb-8897-bd0babef2aa9)
 
