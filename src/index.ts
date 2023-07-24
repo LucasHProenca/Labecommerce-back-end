@@ -455,7 +455,7 @@ app.put("/products/:id", async (req: Request, res: Response) => {
 
             if (typeof newPrice !== "number") {
                 res.statusCode = (400)
-                throw new Error("'number' deve ser do tipo string")
+                throw new Error("'number' deve ser do tipo number")
             }
         }
 
